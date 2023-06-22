@@ -1,0 +1,35 @@
+@baseURL = http://localhost:5000
+@noteId = QgxWKejR9mdnemxC
+
+### Post Request
+POST {{baseURL}}/notes HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Third Note",
+    "tags": [
+        "Try", "Test", "Coba", "Tag4"
+    ],
+    "body": "Catatan ini untuk third testing"
+}
+
+### Get all notes request
+GET {{baseURL}}/notes HTTP/1.1
+
+### Get one specific note use variabel id request
+GET {{baseURL}}/notes/{{noteId}} HTTP/1.1
+
+### Update Request
+PUT {{baseURL}}/notes/{{noteId}} HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Judul diubah",
+    "tags": [
+        "Edited", "Moified"
+    ],
+    "body": "Note Body modified"
+}
+
+### Delete one specific note use variabel id request
+DELETE {{baseURL}}/notes/{{noteId}} HTTP/1.1

@@ -1,0 +1,52 @@
+// Getting Specified Data
+
+pm.test('Response status code should be 200', () => {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Response Content-Type header should have application/json", () => {
+    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');
+});
+
+pm.test("Response body should be an object", () => {
+    const responseJSON = pm.response.json();
+    pm.expect(responseJSON).to.be.an('object');
+});
+
+pm.test("Response body should have the correct property and value", () => {
+    const responseJSON = pm.response.json();
+
+    pm.expect(responseJSON).to.ownProperty('status');
+    pm.expect(responseJSON.status).to.equals('success');
+    
+    pm.expect(responseJSON).to.ownProperty('data');
+    pm.expect(responseJSON.data).to.be.an('object');
+});
+
+pm.test("Response body data should contain note object", () => {
+    const { data } = pm.response.json();
+
+    pm.expect(data).to.ownProperty('note');
+    pm.expect(data.note).to.be.an('object');
+});
+
+pm.test("Response body data.note object should have correct value for id, title, tags, and body", () => {
+    const { data: { note } } = pm.response.json();
+
+    const expectedId = pm.environment.get('noteId');
+    const expectedTitle = "Catatan A";
+    const expectedTags = ["test", "try"];
+    const expectedBody = "Ini isi catatan";
+
+    pm.expect(note).to.have.ownProperty('id');
+    pm.expect(note.id).to.equals(expectedId);
+    
+    pm.expect(note).to.have.ownProperty('title');
+    pm.expect(note.title).to.equals(expectedTitle);
+
+    pm.expect(note).to.have.ownProperty('tags');
+    pm.expect(note.tags).to.eql(expectedTags);
+
+    pm.expect(note).to.have.ownProperty('body');
+    pm.expect(note.body).to.equals(expectedBody);
+});

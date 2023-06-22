@@ -1,0 +1,54 @@
+// Geting All Notes
+pm.test('Response status code should be 200', () => {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Response Content-Type header should have application/json", () => {
+    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');
+});
+
+pm.test("Response body should be an object", () => {
+    const responseJSON = pm.response.json();
+    pm.expect(responseJSON).to.be.an('object');
+});
+
+pm.test("Response body should have the correct property and value", () => {
+    const responseJSON = pm.response.json();
+
+    pm.expect(responseJSON).to.ownProperty('status');
+    pm.expect(responseJSON.status).to.equals('success');
+    
+    pm.expect(responseJSON).to.ownProperty('data');
+    pm.expect(responseJSON.data).to.be.an('object');
+});
+
+pm.test('Response status code should be 200', () => {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Response Content-Type header should have application/json", () => {
+    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');
+});
+
+pm.test("Response body should be an object", () => {
+    const responseJSON = pm.response.json();
+    pm.expect(responseJSON).to.be.an('object');
+});
+
+pm.test("Response body should have the correct property and value", () => {
+    const responseJSON = pm.response.json();
+
+    pm.expect(responseJSON).to.ownProperty('status');
+    pm.expect(responseJSON.status).to.equals('success');
+    
+    pm.expect(responseJSON).to.ownProperty('data');
+    pm.expect(responseJSON.data).to.be.an('object');
+});
+
+pm.test("Response body data should have notes property and its value should be an array and at least must have 1 element", () => {
+    const { data } = pm.response.json();
+
+    pm.expect(data).to.ownProperty('notes');
+    pm.expect(data.notes).to.be.an('array');
+    pm.expect(data.notes).lengthOf.at.least(1);
+});

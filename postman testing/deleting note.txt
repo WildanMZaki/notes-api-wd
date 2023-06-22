@@ -1,0 +1,38 @@
+// Delete Note
+pm.test('Response status code should be 200', () => {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Response Content-Type header should have application/json", () => {
+    pm.expect(pm.response.headers.get('Content-Type')).to.equals('application/json; charset=utf-8');
+});
+
+pm.test("Response body should be an object", () => {
+    const responseJSON = pm.response.json();
+    pm.expect(responseJSON).to.be.an('object');
+});
+
+pm.test("Response body should have correct property and value", () => {
+    const responseJSON = pm.response.json();
+
+    pm.expect(responseJSON).to.ownProperty('status');
+    pm.expect(responseJSON.status).to.equals('success');
+    
+    pm.expect(responseJSON).to.ownProperty('message');
+    pm.expect(responseJSON.message).to.equals('Catatan berhasil dihapus');
+});
+
+pm.test("When request the deleted note", () => {
+    const noteId = pm.environment.get('noteId');
+    pm.sendRequest(`http://localhost:5000/notes/${noteId}`, (error, response) => {
+        if (!error) {
+            pm.test('Then the deleted note should be not found', () => {
+                pm.expect(response.code).to.equals(404);
+
+                const responseJSON = response.json();
+                pm.expect(responseJSON.status).to.equals('fail');
+                pm.expect(responseJSON.message).to.equals('Catatan tidak ditemukan');
+            });
+        }
+    });
+});
