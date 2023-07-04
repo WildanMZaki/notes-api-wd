@@ -1484,7 +1484,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{accessTokenUserA}}}",
+									"value": "{{accessTokenUserA}}",
 									"type": "string"
 								}
 							]
