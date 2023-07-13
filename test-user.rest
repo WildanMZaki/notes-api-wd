@@ -23,7 +23,7 @@ content-type: application/json
 GET http://localhost:5000/users/user-DqXeIrt1v54dlQmY
 
 ### Get User invalid id
-GET http://localhost:5000/users/xxx
+GET http://localhost:5000/users?username=dicoding
 
 ### Authentication Part
 POST http://localhost:5000/authentications HTTP/1.1
@@ -31,5 +31,5 @@ content-type: application/json
 
 {
     "username": "rest-tester",    
-    "password": "12345678",
+    "password": "12345678"
 }
