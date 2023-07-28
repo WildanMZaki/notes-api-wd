@@ -1,0 +1,13 @@
+### Upload
+POST http://localhost:5000/upload/images HTTP/1.1
+Content-Type: multipart/form-data; boundary=MfnBoundry
+
+--MfnBoundry
+Content-Disposition: form-data; name="data"; filename="flower.jpg"
+Content-Type: image/jpeg
+
+< ./imgs/flower.jpg
+--MfnBoundry--
+
+### Get image
+GET http://localhost:5000/upload/images/1690368796441-flower.jpg

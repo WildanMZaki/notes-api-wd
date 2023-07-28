@@ -1,27 +1,32 @@
 @baseURL = http://localhost:5000
 @noteId = QgxWKejR9mdnemxC
+@bearer = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItbEVPVTM3ZVlkdTA3cWpDTiIsImlhdCI6MTY5MDE4NDM5Nn0.IiLB0UxnMvZxW2Xqe52TUGrkpbHTGxaK7sE8i6jlYIc
 
 ### Post Request
 POST {{baseURL}}/notes HTTP/1.1
 content-type: application/json
+Authorization: Bearer {{bearer}}
 
 {
     "title": "Third Note",
     "tags": [
-        "Try", "Test", "Coba", "Tag4"
+        "Try", "Test"
     ],
-    "body": "Catatan ini untuk third testing"
+    "body": "Catatan ini untuk mail sender testing"
 }
 
 ### Get all notes request
 GET {{baseURL}}/notes HTTP/1.1
+Authorization: Bearer {{bearer}}
 
 ### Get one specific note use variabel id request
 GET {{baseURL}}/notes/{{noteId}} HTTP/1.1
+Authorization: Bearer {{bearer}}
 
 ### Update Request
 PUT {{baseURL}}/notes/{{noteId}} HTTP/1.1
 content-type: application/json
+Authorization: Bearer {{bearer}}
 
 {
     "title": "Judul diubah",
@@ -33,3 +38,13 @@ content-type: application/json
 
 ### Delete one specific note use variabel id request
 DELETE {{baseURL}}/notes/{{noteId}} HTTP/1.1
+Authorization: Bearer {{bearer}}
+
+### Export notes
+POST {{baseURL}}/export/notes HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{bearer}}
+
+{
+    "targetEmail": "wildanmzaki984@gmail.com"
+}
